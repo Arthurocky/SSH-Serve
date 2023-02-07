@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>SSH终端</title>
+	<link rel="stylesheet" href="../static/lib/xterm/xterm.css" />
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+	<div class="top-tool">
+		<div class="tool-block">
+			<div class="block-name">主机：</div>
+			<div class="block-content">
+				<input id="host" type="text" class="jp-input" value="43.139.14.88">
+			</div>
+		</div>
+		<div class="tool-block">
+			<div class="block-name">端口号：</div>
+			<div class="block-content">
+				<input id="port" type="text" class="jp-input" value="22" style="width: 50px;">
+			</div>
+		</div>
+		<div class="tool-block">
+			<div class="block-name">用户名：</div>
+			<div class="block-content">
+				<input id="username" type="text" class="jp-input" value="root">
+			</div>
+		</div>
+		<div class="tool-block">
+			<div class="block-name">密码：</div>
+			<div class="block-content">
+				<input id="password" type="password" class="jp-input" value="Vhsueh12#$">
+			</div>
+		</div>
+		<div class="tool-block">
+			<button id="connectBtn" class="jp-button primary" style="margin-top: 14px;">连接</button>
+		</div>
+		
+		<div class="tool-block" style="float: right;">
+			<a href="https://gitee.com/junpeng-li/web-ssh" target="_blank">项目源码</a>
+		</div>
+		
+		<div class="tool-block" style="float: right;">
+			<p title="本项目是学习WebSSH技术搭建的Demo程序，不会记录您的任何隐私信息，可放心使用。如有质疑，可去Gitee仓库参考项目源代码。" style="cursor: default;">说明</p>
+		</div>
+	</div>
+	
+	<div class="a-terminal">
+		<div id="terminal" style="width: 100%;height: 100%;"></div>
+	</div>
+	
+	<script type="text/javascript" src="../static/lib/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="../static/lib/xterm/xterm.js"></script>
+	<script type="text/javascript" src="../static/js/index.js"></script>
+</body>
+</html>
