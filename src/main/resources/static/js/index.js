@@ -33,8 +33,6 @@ $(function() {
 		_consoleBase() {
 			this._term.writeln('欢迎~~')
 			this._term.writeln('Welcome to WebSSH')
-			// this._term.writeln('Author: LiJunpeng')
-			//this._term.writeln('Dev Date: 2022-04-04')
 			this._term.writeln('Demo Version: 1.0.5')
 			this._term.write('You can click on the connect button to connect to the terminal...')
 		}
