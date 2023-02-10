@@ -5,7 +5,7 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
-import com.loki.webssh.constant.FileType;
+import com.loki.webssh.constant.FileStyle;
 import com.loki.webssh.entry.FileEntry;
 
 import java.util.ArrayList;
@@ -49,9 +49,9 @@ public class FtpService {
                 setPath(sftp.pwd());
                 setName(entry.getFilename());
                 if (attr.isDir()) {
-                    setType(FileType.dir);
+                    setType(FileStyle.dir);
                 } else if (attr.isReg()) {
-                    setType(FileType.file);
+                    setType(FileStyle.file);
                 }
                 setSize(attr.getSize());
                 setCreateTime(DateUtil.parse(attr.getAtimeString()).toString());

@@ -2,20 +2,14 @@ package com.loki.webssh.constant;
 
 /**
  * WebSocket传输过来消息的类型
- *
- * @author Junpeng.Li
- * @date 2022-04-04 16:19:00
  */
-public enum MsgType {
-
+public enum MessageStyle {
     /**
-     * 连接指令
+     * 实现连接指令
      */
     connect(),
-
     /**
-     * 终端命令
+     * 终端执行命令
      */
     command()
-
 }

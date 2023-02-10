@@ -3,7 +3,7 @@ package com.loki.webssh.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jcraft.jsch.JSch;
-import com.loki.webssh.constant.Const;
+import com.loki.webssh.constant.ConstantPool;
 import com.loki.webssh.entry.PageData;
 import com.loki.webssh.entry.SSHEntry;
 import com.loki.webssh.service.SSHService;
@@ -42,12 +42,12 @@ public class SSHServiceImpl implements SSHService {
             setjSch(jSch);
         }};
 
-        connects.put(session.getAttributes().get(Const.SESSION_KEY).toString(), entry);
+        connects.put(session.getAttributes().get(ConstantPool.SESSION_KEY).toString(), entry);
     }
 
     @Override
     public void close(WebSocketSession session) {
-        String uuid = session.getAttributes().get(Const.SESSION_KEY).toString();
+        String uuid = session.getAttributes().get(ConstantPool.SESSION_KEY).toString();
         SSHEntry entry = connects.get(uuid);
         if (entry != null && entry.getChannel() != null) {
             entry.getChannel().disconnect();
@@ -60,7 +60,7 @@ public class SSHServiceImpl implements SSHService {
     public void receive(WebSocketSession session, String message) {
         PageData data = JSON.toJavaObject((JSONObject) JSON.parse(message), PageData.class);
 
-        String uuid = session.getAttributes().get(Const.SESSION_KEY).toString();
+        String uuid = session.getAttributes().get(ConstantPool.SESSION_KEY).toString();
         SSHEntry entry = connects.get(uuid);
         if (entry == null) {
             logger.error("未找到用户[ {} ]的连接信息", uuid);

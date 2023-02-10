@@ -1,6 +1,6 @@
 package com.loki.webssh.socket;
 
-import com.loki.webssh.constant.Const;
+import com.loki.webssh.constant.ConstantPool;
 import com.loki.webssh.service.SSHService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class WebSocketHandler implements org.springframework.web.socket.WebSocke
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        logger.info("用户[ {} ]成功连接!", session.getAttributes().get(Const.SESSION_KEY));
+        logger.info("用户[ {} ]成功连接!", session.getAttributes().get(ConstantPool.SESSION_KEY));
 
         // 初始化连接信息
         sshService.init(session);
@@ -47,7 +47,7 @@ public class WebSocketHandler implements org.springframework.web.socket.WebSocke
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
         if (message instanceof TextMessage) {
-            logger.info("用户[ {} ]发送命令: {}", session.getAttributes().get(Const.SESSION_KEY), message.toString());
+            logger.info("用户[ {} ]发送命令: {}", session.getAttributes().get(ConstantPool.SESSION_KEY), message.toString());
 
             // 处理接收到的终端命令
             sshService.receive(session, ((TextMessage) message).getPayload());
@@ -62,7 +62,7 @@ public class WebSocketHandler implements org.springframework.web.socket.WebSocke
      */
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) {
-        logger.error("用户[ {} ]出现错误", session.getAttributes().get(Const.SESSION_KEY), exception);
+        logger.error("用户[ {} ]出现错误", session.getAttributes().get(ConstantPool.SESSION_KEY), exception);
     }
 
     /**
@@ -73,7 +73,7 @@ public class WebSocketHandler implements org.springframework.web.socket.WebSocke
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) {
-        logger.info("用户[ {} ]已断开连接", session.getAttributes().get(Const.SESSION_KEY));
+        logger.info("用户[ {} ]已断开连接", session.getAttributes().get(ConstantPool.SESSION_KEY));
 
         // 关闭连接
         sshService.close(session);

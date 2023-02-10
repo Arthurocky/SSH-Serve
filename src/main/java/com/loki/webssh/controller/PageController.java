@@ -1,24 +1,34 @@
 package com.loki.webssh.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 页面控制器
  *
- * @author Junpeng.Li
- * @date 2022-04-04 15:20:00
+ * @author Arthurocky
  */
 @Controller
 public class PageController {
 
     /**
-     * 将默认请求指向index.html
-     *
-     * @return
+     * 设置将默认请求指向位置
      */
-    @GetMapping(value = "/")
-    public String path() {
+    @RequestMapping(value = "/")
+    public String path()
+    {
+        return "index";
+    }
+
+    @RequestMapping("WebSSH")
+    public String path02()
+    {
+        return "index";
+    }
+
+    @RequestMapping("")
+    public String path03()
+    {
         return "index";
     }
 

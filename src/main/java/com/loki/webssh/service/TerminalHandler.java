@@ -2,7 +2,7 @@ package com.loki.webssh.service;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.Session;
-import com.loki.webssh.entry.ConnectInfo;
+import com.loki.webssh.entry.ConnectData;
 import com.loki.webssh.entry.SSHEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class TerminalHandler {
      *
      * @param info 连接信息
      */
-    public void connect(SSHEntry entry, ConnectInfo info) {
+    public void connect(SSHEntry entry, ConnectData info) {
         executor.execute(new Runnable() {
             @Override
             public void run() {

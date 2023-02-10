@@ -3,10 +3,11 @@ package com.loki.webssh.service;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
- * SSH接口
- *
- * @author Junpeng.Li
- * @date 2022-04-04 15:40:00
+ * WebSSH的业务逻辑<br>
+ * 1.首先连接上终端（初始化连接）<br>
+ * 2.服务端需要处理来自前端的消息（接收并处理前端消息）<br>
+ * 3.将终端返回的消息回写到前端（数据回写前端）<br>
+ * 4.关闭连接<br>
  */
 public interface SSHService {
 

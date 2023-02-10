@@ -1,98 +1,142 @@
 package com.loki.webssh.entry;
 
 import cn.hutool.core.io.FileUtil;
-import com.loki.webssh.constant.FileType;
+import com.loki.webssh.constant.FileStyle;
 
 /**
- * 文件实体
+ * 设置文件基本信息
  *
- * @author Junpeng.Li
- * @date 2022-04-11 21:48:00
+ * @author Arthurocky
  */
 public class FileEntry {
 
+    /**
+     * 创建时间
+     */
+    private String createTime;
+
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+
+    /**
+     * 文件路径
+     */
     private String path;
 
-    private FileType type;
+    /**
+     * 文件类型
+     */
+    private FileStyle type;
 
+    /**
+     * 文件名
+     */
     private String name;
 
     private Long size;
 
     private String sizeStr;
 
-    private String createTime;
+    public FileEntry(String createTime, String updateTime, String path, FileStyle type, String name, Long size, String sizeStr)
+    {
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.path = path;
+        this.type = type;
+        this.name = name;
+        this.size = size;
+        this.sizeStr = sizeStr;
+    }
 
-    private String updateTime;
+    public FileEntry()
+    {
+    }
 
-    public String getPath() {
+    public String getPath()
+    {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(String path)
+    {
         this.path = path;
     }
 
-    public FileType getType() {
+    public FileStyle getType()
+    {
         return type;
     }
 
-    public void setType(FileType type) {
+    public void setType(FileStyle type)
+    {
         this.type = type;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public Long getSize() {
+    public Long getSize()
+    {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(Long size)
+    {
         this.size = size;
 
         this.setSizeStr(FileUtil.readableFileSize(size));
     }
 
-    public String getSizeStr() {
+    public String getSizeStr()
+    {
         return sizeStr;
     }
 
-    public void setSizeStr(String sizeStr) {
+    public void setSizeStr(String sizeStr)
+    {
         this.sizeStr = sizeStr;
     }
 
-    public String getCreateTime() {
+    public String getCreateTime()
+    {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(String createTime)
+    {
         this.createTime = createTime;
     }
 
-    public String getUpdateTime() {
+    public String getUpdateTime()
+    {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(String updateTime)
+    {
         this.updateTime = updateTime;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "FileEntry{" +
-                "path='" + path + '\'' +
+                "createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", path='" + path + '\'' +
                 ", type=" + type +
                 ", name='" + name + '\'' +
                 ", size=" + size +
                 ", sizeStr='" + sizeStr + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
                 '}';
     }
 }

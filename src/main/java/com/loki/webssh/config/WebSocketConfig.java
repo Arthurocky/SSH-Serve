@@ -9,10 +9,9 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 /**
- * WebSocket配置
+ * 处理器：WebSSH的WebSocket配置
  *
- * @author Junpeng.Li
- * @date 2022-04-04 15:29:00
+ * @author Arthurocky
  */
 @Configuration
 @EnableWebSocket
@@ -22,10 +21,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
     private WebSocketHandler webSocketHandler;
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry)
+    {
+        //设置指定处理器和路径作为socket通道，并设置跨域
         registry.addHandler(webSocketHandler, "/ssh")
                 .addInterceptors(new WebSocketInterceptor())
                 .setAllowedOrigins("*");
     }
-
 }

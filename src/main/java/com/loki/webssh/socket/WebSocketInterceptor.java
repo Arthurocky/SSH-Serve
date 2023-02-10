@@ -1,7 +1,7 @@
 package com.loki.webssh.socket;
 
 import cn.hutool.core.util.RandomUtil;
-import com.loki.webssh.constant.Const;
+import com.loki.webssh.constant.ConstantPool;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -20,7 +20,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) {
         if (request instanceof ServletServerHttpRequest) {
-            attributes.put(Const.SESSION_KEY, RandomUtil.randomString(16));
+            attributes.put(ConstantPool.SESSION_KEY, RandomUtil.randomString(16));
             return true;
         }
 
