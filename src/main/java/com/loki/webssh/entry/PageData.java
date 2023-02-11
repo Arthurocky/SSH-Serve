@@ -17,7 +17,7 @@ public class PageData {
     private MessageStyle type;
 
     /**
-     * 设置输入的信息的形式
+     * 设置输入的信息的形式，MessageStyle设置的形式为枚举，只存在如下可能
      * <br>
      * 当 MessageStyle == connect --->message类型就是{@link ConnectData}.
      * <br>
@@ -45,6 +45,10 @@ public class PageData {
         this.message = message;
     }
 
+    /**
+     * 终端命令操作<br>
+     * MessageStyle == command --->String
+     */
     public String getCommand()
     {
         if (MessageStyle.command.equals(this.type)) {
@@ -53,6 +57,10 @@ public class PageData {
         return null;
     }
 
+    /**
+     * 连接操作<br>
+     * MessageStyle == connect --->message类型就是ConnectData
+     */
     public ConnectData getConnectInfo()
     {
         if (MessageStyle.connect.equals(this.type)) {
