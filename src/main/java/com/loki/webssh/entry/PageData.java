@@ -6,6 +6,7 @@ import com.loki.webssh.constant.MessageStyle;
 
 /**
  * 设置页面数据
+ * @author Arthurocky
  */
 public class PageData {
 

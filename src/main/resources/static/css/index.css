@@ -14,7 +14,7 @@ a {
 	color: #000000;
 }
 
-.jp-input {
+.loki-input {
 	border: 1px solid #eee;
 	
 	padding: 7px 10px;
@@ -22,7 +22,7 @@ a {
 	border-radius: 4px;
 }
 
-.jp-button {
+.loki-button {
 	padding: 7px 20px;
 	border: none;
 	line-height: 17px;
@@ -31,12 +31,12 @@ a {
 	border-radius: 4px;
 }
 
-.jp-button.primary {
+.loki-button.primary {
 	background-color: #1989FA;
 	color: #fff;
 }
 
-.jp-button.primary:hover {
+.loki-button.primary:hover {
 	background-color: #8CC4FC;
 }
 

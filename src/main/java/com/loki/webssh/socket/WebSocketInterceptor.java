@@ -10,9 +10,9 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.Map;
 
+
 /**
- * @author Junpeng.Li
- * @date 2022-04-04 15:32:00
+ * @author Arthurocky
  */
 public class WebSocketInterceptor implements HandshakeInterceptor {
 

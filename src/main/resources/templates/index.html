@@ -2,64 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>SSH终端</title>
-	<link rel="stylesheet" href="../static/lib/xterm/xterm.css" />
+    <title>WebSSH终端</title>
+    <link rel="stylesheet" href="../static/lib/xterm/xterm.css"/>
     <link rel="stylesheet" href="../static/css/index.css">
 </head>
 <body>
-	<!--ip-->
-	<div class="top-tool">
-		<div class="tool-block">
-			<div class="block-name">IP地址：</div>
-			<div class="block-content">
-				<input id="host" type="text" class="jp-input" value="192.168.50.128">
-			</div>
-		</div>
+<div class="top-tool">
+    <!--ip-->
+    <div class="tool-block">
+        <div class="block-name">
+            <p title="IP Address" style="cursor: default;"> IP地址</p>
+        </div>
+        <div class="block-content">
+            <input id="host" type="text" class="loki-input" value="43.139.14.88">
+        </div>
+    </div>
 
-		<!--端口号-->
-		<div class="tool-block">
-			<div class="block-name">端口号-Port：</div>
-			<div class="block-content">
-				<input id="port" type="text" class="jp-input" value="22" style="width: 50px;">
-			</div>
-		</div>
+    <!--端口号-->
+    <div class="tool-block">
+        <div class="block-name">
+            <p title="Port" style="cursor: default;">端口号</p>
+        </div>
+        <div class="block-content">
+            <input id="port" type="text" class="loki-input" value="22" style="width: 50px;">
+        </div>
+    </div>
 
-		<!--用户名-->
-		<div class="tool-block">
-			<div class="block-name">用户名-Username：</div>
-			<div class="block-content">
-				<input id="username" type="text" class="jp-input" value="root">
-			</div>
-		</div>
+    <!--用户名-->
+    <div class="tool-block">
+        <div class="block-name">
+            <p title="Username" style="cursor: default;">用户名</p>
+        </div>
+        <div class="block-content">
+            <input id="username" type="text" class="loki-input" value="root">
+        </div>
+    </div>
 
-		<!--密码-->
-		<div class="tool-block">
-			<div class="block-name">密码-Password：</div>
-			<div class="block-content">
-				<input id="password" type="password" class="jp-input" value="root">
-			</div>
-		</div>
+    <!--密码-->
+    <div class="tool-block">
+        <div class="block-name">
+            <p title="Password" style="cursor: default;">密码</p>
+        </div>
+        <div class="block-content">
+            <input id="password" type="password" class="loki-input" value="Vhsueh12#$">
+        </div>
+    </div>
 
-		<!--连接按钮-->
-		<div class="tool-block">
-			<button id="connectBtn" class="jp-button primary" style="margin-top: 14px;">连接-Connect</button>
-		</div>
-		
-		<div class="tool-block" style="float: right;">
-			<a href="https://github.com/Arthurocky/SSH-Serve.git" target="_blank">源码-Source</a>
-		</div>
-		
-		<div class="tool-block" style="float: right;">
-			<p title="WebSSH技术搭建的程序，更多详情可进入源码了解" style="cursor: default;">了解</p>
-		</div>
-	</div>
-	
-	<div class="a-terminal">
-		<div id="terminal" style="width: 100%;height: 100%;"></div>
-	</div>
-	
-	<script type="text/javascript" src="../static/lib/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="../static/lib/xterm/xterm.js"></script>
-	<script type="text/javascript" src="../static/js/index.js"></script>
+    <!--连接按钮-->
+    <div class="tool-block">
+        <button id="connectBtn" class="loki-button primary" style="margin-top: 14px;">连接-Connect</button>
+    </div>
+
+    <div class="tool-block" style="float: right;">
+        <a href="https://github.com/Arthurocky/SSH-Serve.git" target="_blank">源码</a>
+    </div>
+
+    <div class="tool-block" style="float: right;">
+        <p title="基于Java搭建的WebSSH技术程序，更多详情可进入源码了解" style="cursor: default;">了解</p>
+    </div>
+</div>
+
+<div class="a-terminal">
+    <div id="terminal" style="width: 100%;height: 100%;"></div>
+</div>
+
+<script type="text/javascript" src="../static/lib/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../static/lib/xterm/xterm.js"></script>
+<script type="text/javascript" src="../static/js/index.js"></script>
 </body>
 </html>

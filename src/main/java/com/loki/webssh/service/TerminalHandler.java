@@ -3,7 +3,7 @@ package com.loki.webssh.service;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.Session;
 import com.loki.webssh.entry.ConnectData;
-import com.loki.webssh.entry.SSHEntry;
+import com.loki.webssh.entry.SshConnectInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,65 +18,69 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * 终端处理器
+ * 通过使用jsch连接并进行处理<br>
+ * 实现数据回显
  *
- * @author Junpeng.Li
- * @date 2022-04-04 16:32:00
+ * @author Arthurocky
  */
 @Component
 public class TerminalHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(TerminalHandler.class);
 
+    /**
+     * 创建线程池
+     */
     private ExecutorService executor = Executors.newCachedThreadPool();
 
     /**
      * 连接终端
-     *
-     * @param info 连接信息
      */
-    public void connect(SSHEntry entry, ConnectData info) {
+    public void connect(SshConnectInfo connectInfo, ConnectData data)
+    {
+        //启动线程异步处理
         executor.execute(new Runnable() {
             @Override
-            public void run() {
+            public void run()
+            {
                 Session session;
                 try {
-                    session = entry.getjSch().getSession(info.getUsername(), info.getHost(), info.getPort());
+                    session = connectInfo.getjSch().getSession(data.getUsername(), data.getHost(), data.getPort());
                     session.setConfig("StrictHostKeyChecking", "no");
-                    session.setPassword(info.getPassword());
+                    session.setPassword(data.getPassword());
                     // 连接, 并设置连接超时时间
-                    session.connect(info.getTimeout() * 1000);
-
+                    session.connect(data.getTimeout() * 1000);
                     // 打开shell通道
                     Channel channel = session.openChannel("shell");
-                    channel.connect(info.getTimeout() * 1000);
-
-                    entry.setChannel(channel);
+                    channel.connect(data.getTimeout() * 1000);
+                    connectInfo.setChannel(channel);
                 } catch (Exception e) {
+                    logger.error("webssh连接异常");
+                    logger.error("异常信息:{}", e.getMessage());
                     String errorMsg = String.format("Could not connect to '%s' (port %s): Connection failed.",
-                            info.getHost(), info.getPort());
-
+                            data.getHost(), data.getPort());
                     logger.error(errorMsg);
-
-                    sendMessage(entry.getSession(), errorMsg.getBytes());
+                    sendMessage(connectInfo.getSession(), errorMsg.getBytes());
                     return;
                 }
-
-                sendCommand(entry.getChannel(), "\r");
-
+                //转发消息
+                sendCommand(connectInfo.getChannel(), "\r");
                 InputStream is = null;
                 try {
-                    is = entry.getChannel().getInputStream();
-
+                    //读取终端返回的信息流
+                    is = connectInfo.getChannel().getInputStream();
+                    //循环读取
                     byte[] buffer = new byte[1024];
                     int i = 0;
+                    //如果没有数据来，线程会一直阻塞在这个地方等待数据。
                     while ((i = is.read(buffer)) != -1) {
-                        sendMessage(entry.getSession(), Arrays.copyOfRange(buffer, 0, i));
+                        sendMessage(connectInfo.getSession(), Arrays.copyOfRange(buffer, 0, i));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    entry.getChannel().disconnect();
+                    //断开连接后关闭会话
+                    connectInfo.getChannel().disconnect();
                     session.disconnect();
                     if (is != null) {
                         try {
@@ -91,16 +95,13 @@ public class TerminalHandler {
     }
 
     /**
-     * 将命令发送给终端
-     *
-     * @param channel shell通道
-     * @param command 命令
+     * 发送命令给终端
      */
-    public void sendCommand(Channel channel, String command) {
+    public void sendCommand(Channel channel, String command)
+    {
         if (channel == null) {
             return;
         }
-
         try {
             OutputStream outputStream = channel.getOutputStream();
             outputStream.write(command.getBytes());
@@ -112,11 +113,9 @@ public class TerminalHandler {
 
     /**
      * 发送消息给页面
-     *
-     * @param session WebSocket会话对象
-     * @param message 要发送的信息
      */
-    public void sendMessage(WebSocketSession session, byte[] message) {
+    public void sendMessage(WebSocketSession session, byte[] message)
+    {
         try {
             session.sendMessage(new TextMessage(message));
         } catch (IOException e) {

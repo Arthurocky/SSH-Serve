@@ -9,7 +9,7 @@ import org.springframework.web.socket.WebSocketSession;
  *
  * @author Arthurocky
  */
-public class SSHEntry {
+public class SshConnectInfo {
 
     /**
      * 用户WebSocket的会话信息
