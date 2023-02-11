@@ -1,7 +1,7 @@
 package com.loki.webssh.socket;
 
 import com.loki.webssh.constant.ConstantPool;
-import com.loki.webssh.service.SSHService;
+import com.loki.webssh.service.WebSSHService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,9 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
- * WebSocket处理器
+ * WebSocket的WebSocket消息处理器
  *
- * @author Junpeng.Li
- * @date 2022-04-04 15:31:00
+ * @author Arthurocky
  */
 @Component
 public class WebSocketHandler implements org.springframework.web.socket.WebSocketHandler {
@@ -23,64 +22,59 @@ public class WebSocketHandler implements org.springframework.web.socket.WebSocke
     private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
     @Autowired
-    private SSHService sshService;
+    private WebSSHService webSshService;
 
     /**
-     * 用户连接之前的回调函数
-     *
-     * @param session WebSocket会话对象
+     * 用户连接上之前的回调
      */
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) {
-        logger.info("用户[ {} ]成功连接!", session.getAttributes().get(ConstantPool.SESSION_KEY));
+    public void afterConnectionEstablished(WebSocketSession webSocketSession)
+    {
+        logger.info("用户[ {} ]成功连接!", webSocketSession.getAttributes().get(ConstantPool.SESSION_KEY));
 
-        // 初始化连接信息
-        sshService.init(session);
+        // 调用初始化连接信息
+        webSshService.init(webSocketSession);
+
     }
 
     /**
-     * 收到WebSocket消息
-     *
-     * @param session WebSocket会话对象
-     * @param message 接收到的消息
+     * 收到WebSocket消息的回调<br>
      */
     @Override
-    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> message)
+    {
         if (message instanceof TextMessage) {
-            logger.info("用户[ {} ]发送命令: {}", session.getAttributes().get(ConstantPool.SESSION_KEY), message.toString());
-
-            // 处理接收到的终端命令
-            sshService.receive(session, ((TextMessage) message).getPayload());
+            logger.info("用户[ {} ]发送命令: {}", webSocketSession.getAttributes().get(ConstantPool.SESSION_KEY), message.toString());
+            // 调用service来接收消息，并处理接收到的终端命令
+            webSshService.receiveHandle(webSocketSession, ((TextMessage) message).getPayload());
         }
+        System.out.println("Unexpected WebSocket message type: " + message);
     }
 
     /**
      * 出现错误时的回调
-     *
-     * @param session   WebSocket会话对象
-     * @param exception 错误信息
      */
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) {
+    public void handleTransportError(WebSocketSession session, Throwable exception)
+    {
+        logger.error("数据传输错误");
         logger.error("用户[ {} ]出现错误", session.getAttributes().get(ConstantPool.SESSION_KEY), exception);
     }
 
     /**
      * 断开连接后的回调
-     *
-     * @param session     WebSocket会话对象
-     * @param closeStatus 关闭状态对象
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus)
+    {
         logger.info("用户[ {} ]已断开连接", session.getAttributes().get(ConstantPool.SESSION_KEY));
-
-        // 关闭连接
-        sshService.close(session);
+        //调用service关闭连接
+        webSshService.close(session);
     }
 
     @Override
-    public boolean supportsPartialMessages() {
+    public boolean supportsPartialMessages()
+    {
         return false;
     }
 

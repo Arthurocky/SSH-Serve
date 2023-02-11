@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * WebSSH的启动入口类
+ * @author Arthurocky
  */
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 public class WebSSHApplication {
