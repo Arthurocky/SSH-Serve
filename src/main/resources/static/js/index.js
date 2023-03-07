@@ -6,9 +6,10 @@ $(function () {
 
         init() {
             this._term = new Terminal({
-                cursorBlink: true,
-                cursorStyle: "black",
-                scrollback: 1200,
+                cursorBlink: false,// 光标闪烁
+                cursorStyle: "block",// 光标样式  null | 'block' | 'underline' | 'bar'
+                scrollback: 1000,//回滚
+                tabStopWidth: 8, //制表宽度
                 screenKeys: true,
                 cursor: 'help',
                 rows: 49,
