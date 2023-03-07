@@ -11,6 +11,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.annotation.Resource;
+
 /**
  * WebSocket的WebSocket消息处理器
  *
@@ -21,7 +23,7 @@ public class WebSocketHandler implements org.springframework.web.socket.WebSocke
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
-    @Autowired
+    @Resource
     private WebSSHService webSshService;
 
     /**

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,7 +32,7 @@ public class WebSSHServiceImpl implements WebSSHService {
     private static final Logger logger = LoggerFactory.getLogger(WebSSHServiceImpl.class);
     private Map<String, SshConnectInfo> connects = new ConcurrentHashMap<>();
 
-    @Autowired
+    @Resource
     private TerminalHandler terminalHandler;
 
     /**

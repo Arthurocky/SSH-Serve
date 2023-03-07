@@ -8,6 +8,8 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import javax.annotation.Resource;
+
 /**
  * 处理器：WebSSH的WebSocket配置
  *
@@ -17,7 +19,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    @Autowired
+    @Resource
     private WebSocketHandler webSocketHandler;
 
     @Override

@@ -32,4 +32,10 @@ public class PageController {
         return "index";
     }
 
+    @RequestMapping("webssh")
+    public String path04()
+    {
+        return "index";
+    }
+
 }
